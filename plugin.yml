@@ -2,3 +2,10 @@ name: FirstPlugin
 version: 0.0.1
 author: Herethon
 main: fr.herethon.firstplugin.FirstPlugin
+commands:
+  test:
+    description: This is a test command.
+    permission: test.use  
+  alert:
+    description: This is a custom broadcast.
+    permission: bc.use
