@@ -14,6 +14,9 @@ public class FirstPlugin extends JavaPlugin {
 		// For each commands set an executor of type CommandTest
 		getCommand("test").setExecutor(new CommandTest());
 		getCommand("alert").setExecutor(new CommandTest());
+		
+		// Register a new event listener for PlayerJoinEvent
+		getServer().getPluginManager().registerEvents(new FirstPluginListeners(), this);
 	}
 	
 	@Override
