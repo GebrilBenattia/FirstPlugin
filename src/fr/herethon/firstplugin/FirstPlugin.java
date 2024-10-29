@@ -6,11 +6,11 @@ public class FirstPlugin extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		System.out.println("Plugin Started !");
+		System.out.println("\u001B[32m" + "Plugin Started !" + "\u001B[0m");
 	}
 	
 	@Override
 	public void onDisable() {
-		System.out.println("Plugin Shut down!");
+		System.out.println("\u001B[31m" + "Plugin Shut down!" + "\u001B[0m");
 	}
 }
