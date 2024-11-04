@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.herethon.firstplugin.commands.CommandSpawn;
 import fr.herethon.firstplugin.commands.CommandTest;
+import fr.herethon.firstplugin.tasks.TimerTask;
 
 public class FirstPlugin extends JavaPlugin {
 	
@@ -27,6 +28,12 @@ public class FirstPlugin extends JavaPlugin {
 			// Print them in the console.
 			System.out.println(str);
 		}
+		
+		// Creating a new instance of TimerTask class
+		TimerTask timerTask = new TimerTask();
+		
+		// Run the timer task every seconds 20 ticks = 1 second.
+		timerTask.runTaskTimer(this, 0, 20);
 	}
 	
 	@Override
