@@ -6,7 +6,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import fr.herethon.firstplugin.FirstPlugin;
+
 public class CommandTest implements CommandExecutor {
+
+	// Instance of the main class.
+	private FirstPlugin m_Instance;
+	
+	public CommandTest(FirstPlugin _PluginInstance) {
+		this.m_Instance = _PluginInstance;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender _Sender, Command _Cmd, String _Msg, String[] _Args) {
@@ -17,7 +26,8 @@ public class CommandTest implements CommandExecutor {
 			
 			// Check if the /test command is called
 			if(_Cmd.getName().equalsIgnoreCase("test")) {
-				player.sendMessage("§e§lCongratulation you passed the test !§r");
+				// Get the message from the config.yml file replace the "&" by "§" and send the success message to the player.
+				player.sendMessage(m_Instance.getConfig().getString("messages.test").replace("&", "§"));
 				
 				return true; // Command execution succeeded
 			}

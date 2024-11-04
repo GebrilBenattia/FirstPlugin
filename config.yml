@@ -1,0 +1,12 @@
+messages:
+  # Message when calling /test
+  test: "&e&lCongratulation you passed the test !"
+badwords:
+-  "fuck"
+-  "shit"
+-  "horse"
+kits:
+  soldier: 
+    id: 5
+  butcher: 
+    id: 3
