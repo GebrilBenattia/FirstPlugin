@@ -2,6 +2,7 @@ package fr.herethon.firstplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.herethon.firstplugin.commands.CommandSpawn;
 import fr.herethon.firstplugin.commands.CommandTest;
 
 public class FirstPlugin extends JavaPlugin {
@@ -14,6 +15,7 @@ public class FirstPlugin extends JavaPlugin {
 		// For each commands set an executor of type CommandTest
 		getCommand("test").setExecutor(new CommandTest());
 		getCommand("alert").setExecutor(new CommandTest());
+		getCommand("spawn").setExecutor(new CommandSpawn());
 		
 		// Register a new event listener for PlayerJoinEvent
 		getServer().getPluginManager().registerEvents(new FirstPluginListeners(), this);

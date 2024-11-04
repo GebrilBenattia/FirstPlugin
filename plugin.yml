@@ -9,3 +9,6 @@ commands:
   alert:
     description: This is a custom broadcast.
     permission: bc.use
+  spawn:
+    description: This is a command to teleport back to spawn.
+    permission: spawn.use
