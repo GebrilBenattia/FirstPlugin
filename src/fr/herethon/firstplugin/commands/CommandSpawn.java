@@ -40,5 +40,4 @@ public class CommandSpawn implements CommandExecutor {
 		
 		return false; // Command execution failed
 	}
-
 }

@@ -7,10 +7,14 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class FirstPluginListeners implements Listener {
 
@@ -26,13 +30,13 @@ public class FirstPluginListeners implements Listener {
 		player.getInventory().addItem(new ItemStack(Material.IRON_SWORD, 3));
 		
 		// Creating a new ItemStack for a custom sword.
-		ItemStack customSword = new ItemStack(Material.IRON_SWORD, 1);
+		ItemStack customSword = new ItemStack(Material.COMPASS, 1);
 		
 		// Creating a new ItemMeta for the custom sword.
 		ItemMeta customMeta = customSword.getItemMeta();
 		
 		// Changing item name.
-		customMeta.setDisplayName("§c§lMy Custom Sword");
+		customMeta.setDisplayName("§c§lMy Custom Compass");
 		
 		// Changing item description.
 		customMeta.setLore(Arrays.asList("First Row", "Second Row", "Third Row"));
@@ -58,4 +62,38 @@ public class FirstPluginListeners implements Listener {
 		// Updates player's inventory to avoid graphic bugs.
 		player.updateInventory();
 	}
+	
+	@EventHandler
+	public void onInteract(PlayerInteractEvent _Event) {
+		// Gets the player that joined the server.
+		Player player = _Event.getPlayer();
+		
+		// Creating a new Action to get how the player is interacting.
+		Action action = _Event.getAction();
+		
+		// Creating a new ItemStack for the current player hand.
+		ItemStack itemStack = _Event.getItem();
+		
+		// If there is no item we return.
+		if (itemStack == null) return;
+		
+		// If the item is a diamond hoe.
+		if (itemStack .getType() == Material.DIAMOND_HOE) {
+			
+			// Check if the player right clicks in the air.
+			if (action == Action.RIGHT_CLICK_AIR) {
+				
+				// Send a success message.
+				player.sendMessage("You clicked in the air.");				
+			}
+		}
+		
+		// If the item is a compass with a custom name.
+		if (itemStack.getType() == Material.COMPASS && itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lMy Custom Compass")) {
+			
+			// Adding a speed 3 potion effect to the player.
+			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
+		}
+	}
+	
 }
