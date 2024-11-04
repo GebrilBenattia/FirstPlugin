@@ -2,19 +2,22 @@ package fr.herethon.firstplugin;
 
 import java.util.Arrays;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class FirstPluginListeners implements Listener {
 
@@ -91,9 +94,61 @@ public class FirstPluginListeners implements Listener {
 		// If the item is a compass with a custom name.
 		if (itemStack.getType() == Material.COMPASS && itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equalsIgnoreCase("§c§lMy Custom Compass")) {
 			
-			// Adding a speed 3 potion effect to the player.
-			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
+			// Creating a new inventory with no owner since its a menu and 54 slots which is the limit.
+			Inventory inventory = Bukkit.createInventory(null, 27, "§8My Menu");
+			
+			// Add custom items to the inventory menu.
+			inventory.setItem(11, getItem(Material.APPLE, "§a§lChange to gamemode spectator."));
+			inventory.setItem(14, getItem(Material.ANVIL, "§c§lGive 3 Tnt"));
+			
+			player.openInventory(inventory);
 		}
 	}
 	
+	@EventHandler
+	public void onClick(InventoryClickEvent _Event) {
+		// Get the inventory view form the event.
+		InventoryView inventoryView = _Event.getView();
+		
+		// Gets the player who clicked in the inventory.
+		Player player = (Player) _Event.getWhoClicked();
+		
+		// Current itemStack / slot of the inventory that has been clicked.
+		ItemStack currentItem = _Event.getCurrentItem();
+		
+		if (inventoryView.getTitle().equalsIgnoreCase("§8My Menu")) {
+			
+			// Prevent the player of picking up the item.
+			_Event.setCancelled(true);
+			
+			switch (currentItem.getType()) {
+			
+				case APPLE:
+					// Close inventory after the click.
+					player.closeInventory();
+					// Sets the player GameMode to spectator.
+					player.setGameMode(GameMode.SPECTATOR);
+					break;
+				
+				case ANVIL:
+					// Gives the player 3 TnT per click on the anvil.
+					player.getInventory().addItem(new ItemStack(Material.TNT, 3));
+					break;
+					
+				default: break;
+			}
+		}
+		
+	}
+	
+	
+	public ItemStack getItem(Material _Material, String _Name) {
+		// Creating custom item and change its name.
+		ItemStack itemStack = new ItemStack(_Material, 1);
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.setDisplayName(_Name);
+		itemStack.setItemMeta(itemMeta);
+		
+		return itemStack;
+	}
 }
