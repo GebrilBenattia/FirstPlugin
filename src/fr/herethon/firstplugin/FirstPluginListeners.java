@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Sign;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -76,6 +78,28 @@ public class FirstPluginListeners implements Listener {
 		
 		// Creating a new ItemStack for the current player hand.
 		ItemStack itemStack = _Event.getItem();
+		
+		// Checks if player clicked on a block.
+		if (_Event.getClickedBlock() != null && action == Action.RIGHT_CLICK_BLOCK) {
+			// Get this block.
+			BlockState blockState = _Event.getClickedBlock().getState();
+			
+			// Check if the clicked block is a Sign.
+			if (blockState instanceof Sign) {
+				// Cast the block to Sign.
+				Sign sign = (Sign)blockState;
+				
+				// Checks if the first row contains "[Clear]" and the second "all".
+				// sign.getLine(int) is deprecated in 1.21 since Signs can have multiple sides so we get the player's facing side and get line on it.
+				if (sign.getTargetSide(player).getLine(0).equalsIgnoreCase("[Clear]") && sign.getTargetSide(player).getLine(1).equalsIgnoreCase("all")) {
+					// Send a success message to the player.
+					player.sendMessage("You have been /clear");
+					
+					// Clear player's inventory.
+					player.getInventory().clear();
+				}
+			}
+		}
 		
 		// If there is no item we return.
 		if (itemStack == null) return;
