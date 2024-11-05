@@ -1,5 +1,8 @@
 package fr.herethon.firstplugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.herethon.firstplugin.commands.CommandSpawn;
@@ -23,7 +26,7 @@ public class FirstPlugin extends JavaPlugin {
 		// Register a new event listener for PlayerJoinEvent
 		getServer().getPluginManager().registerEvents(new FirstPluginListeners(), this);
 		
-		// Loops on all the keys contained in the "badwords" section of the config.yml file
+		// Loops on all the keys contained in the "bad words" section of the config.yml file
 		for (String str : getConfig().getStringList("badwords")) {
 			// Print them in the console.
 			System.out.println(str);
@@ -34,6 +37,33 @@ public class FirstPlugin extends JavaPlugin {
 		
 		// Run the timer task every seconds 20 ticks = 1 second.
 		timerTask.runTaskTimer(this, 0, 20);
+		
+		// Get the over world.
+		World world = Bukkit.getWorld("world");
+		
+		// Get its world border.
+		WorldBorder worldBorder = world.getWorldBorder();
+		
+		// Set the center at X = 0 and Z = 0.
+		worldBorder.setCenter(0, 0);
+		
+		// Set border size to 250x250 square.
+		worldBorder.setSize(250);
+		
+		// Set world border damage amount to 5.
+		worldBorder.setDamageAmount(5);
+		
+		// Create a Runnable task that cannot be cancelled (not BukkitRunnable) to shrink the border by a value at each seconds.
+		Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+			@Override
+			public void run() {
+				// Checks for minimum border size.
+				if (worldBorder.getSize() > 25) {
+					// Reduce the border size by one.
+					worldBorder.setSize(worldBorder.getSize() - 1);					
+				}
+			}
+		}, 0, 20);
 	}
 	
 	@Override

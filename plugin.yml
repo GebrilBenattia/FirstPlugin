@@ -3,6 +3,7 @@ name: FirstPlugin
 version: 0.0.1
 author: Herethon
 main: fr.herethon.firstplugin.FirstPlugin
+load: STARTUP
 commands:
   test:
     description: This is a test command.
