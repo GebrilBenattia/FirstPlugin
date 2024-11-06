@@ -26,6 +26,8 @@ public class FirstPlugin extends JavaPlugin {
 		// Register a new event listener for PlayerJoinEvent
 		getServer().getPluginManager().registerEvents(new FirstPluginListeners(), this);
 		
+		// Useless code for now
+		/* 
 		// Loops on all the keys contained in the "bad words" section of the config.yml file
 		for (String str : getConfig().getStringList("badwords")) {
 			// Print them in the console.
@@ -64,6 +66,8 @@ public class FirstPlugin extends JavaPlugin {
 				}
 			}
 		}, 0, 20);
+		
+		*/
 	}
 	
 	@Override

@@ -20,6 +20,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public class FirstPluginListeners implements Listener {
 
@@ -63,6 +64,13 @@ public class FirstPluginListeners implements Listener {
 		
 		// Putting this custom wool as the player helmet.
 		player.getInventory().setHelmet(customWool);
+		
+		
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+		
+		skullMeta.setOwner("luck");
+
 		
 		// Updates player's inventory to avoid graphic bugs.
 		player.updateInventory();

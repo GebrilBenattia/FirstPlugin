@@ -1,6 +1,6 @@
 package fr.herethon.firstplugin.commands;
 
-import org.bukkit.Bukkit;
+//import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -52,7 +52,10 @@ public class CommandTest implements CommandExecutor {
 				}
 				
 				// Broadcast sender’s name and message to all players
-				Bukkit.broadcastMessage("[" + player.getName()  + "] " + "§c§l" + bc.toString() + "§r");
+				//Bukkit.broadcastMessage("[" + player.getName()  + "] " + "§c§l" + bc.toString() + "§r");
+				
+				player.sendTitle("[" + player.getName()  + "] ", "§c§l" + bc.toString() + "§r", 10, 70, 20);
+				player.sendTitle("[" + player.getName()  + "] ", "§c§l" + bc.toString() + "§r", 10, 70, 20);
 				
 				return true; // Command execution succeeded
 			}
