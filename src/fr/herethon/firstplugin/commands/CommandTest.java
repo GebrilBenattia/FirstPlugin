@@ -54,7 +54,7 @@ public class CommandTest implements CommandExecutor {
 				// Broadcast sender’s name and message to all players
 				//Bukkit.broadcastMessage("[" + player.getName()  + "] " + "§c§l" + bc.toString() + "§r");
 				
-				player.sendTitle("[" + player.getName()  + "] ", "§c§l" + bc.toString() + "§r", 10, 70, 20);
+				// Send a title to the player that will later be used to announce the game is about to start using a bukkit runnable timer task 
 				player.sendTitle("[" + player.getName()  + "] ", "§c§l" + bc.toString() + "§r", 10, 70, 20);
 				
 				return true; // Command execution succeeded
